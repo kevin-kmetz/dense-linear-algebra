@@ -1,0 +1,12 @@
+{
+  "name": "dense-linear-algebra",
+  "url": "https://github.com/kevin-kmetz/dense-linear-algebra",
+  "license": "MIT",
+  "tags": ["matrix", "vector", "math", "linear-algebra"],
+  "description": "A library implemented in pure Haxe for working with dense vectors and dense matrices, built over top of arrays. The focus is on portability and simplicity, so the operations are CPU-based without any use of SIMD or OpenGL.",
+  "version": "0.1.0-alpha",
+  "releasenote": "Initial alpha release.",
+  "contributors": ["kevin-kmetz"],
+  "classPath": "src"
+}
+

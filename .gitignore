@@ -1,3 +1,6 @@
+# Ignore Vim swap files:
+*.swp
+
 .haxelib/
 .haxelsp/recording/
 dump/
