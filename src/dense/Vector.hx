@@ -14,14 +14,17 @@ class Vector {
 
   public final length:Int;
 
-  public function new(haxeVector:FloatVector) {
+  private function new(haxeVector:FloatVector) {
     vector = haxeVector.copy();
     length = haxeVector.length;
 
     trace("Vector.");
   }
 
-  // public static function fromArray(array:Array<Float>):Vector {}
+  public static function fromArray(array:Array<Float>):Vector {
+    return new Vector(FloatVector.fromArrayCopy(array));
+  }
+
   // public static function fromHaxeVector(haxeVector:FloatVector):Vector {}
   // public static function generate(length:Int, func: Int -> Float):Vector {}
   // public static function randomized(length:Int, min:Float, max:Float):Vector {}
