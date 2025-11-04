@@ -1,16 +1,16 @@
 /*
  * dense-linear-algebra/src/dense/Vector.hx
  *
- * A class representing an immutable mathematical vector of floating point
+ * A class representing an immutable mathematical dense vector of floating point
  * numbers, of fixed and arbitrary size.
  */
 
 package dense;
 
-typdef FloatVector = haxe.ds.Vector<Float>;
+typedef FloatVector = haxe.ds.Vector<Float>;
 
 class Vector {
-  private vector:FloatVector;
+  private final vector:FloatVector;
 
   public final length:Int;
 
@@ -24,10 +24,10 @@ class Vector {
   public static function unit(length:Int):Vector {}
 
   public function clone():Vector {}
-  public function equals(other:Vector, threshold:Float) {}
+  public function equals(other:Vector, threshold:Float):Bool {}
   public function toString():String {}
   public function get(index:Int):Float {}
-  public function map(func: Float -> Float):Vector {}
+  public function map(func:Float -> Float):Vector {}
 
   public function magnitude():Float {}
   public function norm(p:Float):Float {}
@@ -45,5 +45,8 @@ class Vector {
   public function subtractScalar(scalar:Float):Vector {}
   public function multiplyScalar(scalar:Float):Vector {}
   public function divideScalar(scalar:Float):Vector {}
+
+  public function asMatrixColumn():Matrix {}
+  public function asMatrixRow():Matrix {}
 }
 
