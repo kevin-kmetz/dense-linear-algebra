@@ -21,6 +21,7 @@ class VectorTest {
     equalsTest();
     mapTest();
     magnitudeTest();
+    normalizeTest();
 
     trace("...all tests passed!");
   }
@@ -149,6 +150,16 @@ class VectorTest {
 
     final vec5 = Vector.fromArray([4.0, -5.0, 8.0, -8.0]);
     assert(vec5.magnitude() == 13.0);
+  }
+
+  private static function normalizeTest():Void {
+    final roughlyEqual = (a:Float, b:Float) -> Math.abs(a - b) < 0.0000001;
+
+    final vec1 = Vector.fromArray([72.0, 888.88, -5000.0]);
+    assert(roughlyEqual(vec1.normalize().magnitude(), 1.0));
+
+    final vec2 = Vector.randomized(250, -375.25, 895.11);
+    assert(roughlyEqual(vec2.normalize().magnitude(), 1.0));
   }
 }
 

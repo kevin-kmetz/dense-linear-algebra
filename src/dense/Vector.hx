@@ -105,7 +105,17 @@ class Vector {
     return Math.sqrt(sum);
   }
 
-  // public function normalize():Vector {}
+  public function normalize():Vector {
+    final floatVector = new FloatVector(this.length);
+    final magnitude = this.magnitude();
+
+    for (i in 0...this.length) {
+      floatVector[i] = vector[i] / magnitude;
+    }
+
+    return new Vector(floatVector);
+  }
+
   // public function dotProduct(other:Vector):Float {}
 
   // public function crossProduct(otherVec3:Vector):Vector {}
