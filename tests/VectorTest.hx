@@ -6,8 +6,8 @@ package tests;
 
 import dense.Vector;
 
-final assert = Assert.assert;
-typedef FloatVector = haxe.ds.Vector<Float>;
+private final assert = Assert.assert;
+private typedef FloatVector = haxe.ds.Vector<Float>;
 
 class VectorTest {
   public static function run():Void {

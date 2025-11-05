@@ -7,17 +7,32 @@
 
 package dense;
 
-typedef FloatVector = haxe.ds.Vector<Float>;
+private typedef FloatVector = haxe.ds.Vector<Float>;
 
 class Matrix {
   private final vector:FloatVector;
 
-  public final rowCount:Int;
-  public final columnCount:Int;
+  public final rows:Int;
+  public final columns:Int;
 
-  private function new(rows:Int, columns:Int, haxeVector:FloatVector) {}
+  private function new(rows:Int, columns:Int, haxeVector:FloatVector) {
+    if (rows < 1) throw "Invalid number of rows for matrix.";
+    if (columns < 1) throw "Invalid number of columns for matrix.";
+    if (rows * columns != haxeVector.length) {
+      throw "Supplied data does not match stated shape of matrix.";
+    }
 
-  // public static function fromArray(rows:Int, columns:Int, array:Array<Float>):Matrix {}
+    vector = haxeVector;
+    this.rows = rows;
+    this.columns = columns;
+  }
+
+  public static function fromArray(
+    rows:Int, columns:Int, array:Array<Float>
+  ):Matrix {
+    return new Matrix(rows, columns, FloatVector.fromArrayCopy(array));
+  }
+
   // public static function fromArrayOfArrays(array:Array<Array<Float>>):Matrix {}
   // public static function fromHaxeVector(rows:Int, columns:Int, haxeVector:FloatVector):Matrix {}
   // public static function generate(rows:Int, columns:Int, func:(Int, Int) -> Float):Matrix {}
