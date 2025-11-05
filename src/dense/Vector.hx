@@ -116,7 +116,19 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  // public function dotProduct(other:Vector):Float {}
+  public function dotProduct(other:Vector):Float {
+    if (this.length != other.length) {
+      throw "Vector length mismatch.";
+    }
+
+    var componentSum = 0.0;
+
+    for (i in 0...this.length) {
+      componentSum += vector[i] * other.get(i);
+    }
+
+    return componentSum;
+  }
 
   // public function crossProduct(otherVec3:Vector):Vector {}
 

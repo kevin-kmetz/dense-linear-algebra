@@ -22,6 +22,7 @@ class VectorTest {
     mapTest();
     magnitudeTest();
     normalizeTest();
+    dotProductTest();
 
     trace("...all tests passed!");
   }
@@ -160,6 +161,18 @@ class VectorTest {
 
     final vec2 = Vector.randomized(250, -375.25, 895.11);
     assert(roughlyEqual(vec2.normalize().magnitude(), 1.0));
+  }
+
+  private static function dotProductTest():Void {
+    final vec1 = Vector.fromArray([-2.0, 5.0]);
+    final vec2 = Vector.fromArray([4.0, -1.0]);
+    assert(vec1.dotProduct(vec2) == -13.0);
+
+    final vec3 = Vector.fromArray([2.0, -1.0, 3.0, 0.0, -2.0]);
+    final vec4 = Vector.fromArray([1.0, 4.0, -1.0, 5.0, 3.0]);
+    assert(vec3.dotProduct(vec4) == -11.0);
+
+    assert(vec3.dotProduct(vec4) == vec4.dotProduct(vec3));
   }
 }
 
