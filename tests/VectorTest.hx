@@ -24,6 +24,9 @@ class VectorTest {
     normalizeTest();
     dotProductTest();
     crossProductTest();
+    addVectorTest();
+    subtractVectorTest();
+    negateTest();
 
     trace("...all tests passed!");
   }
@@ -189,6 +192,40 @@ class VectorTest {
 
     for (i in 0...product1.length) {
       assert(product1.get(i) == -product2.get(i));
+    }
+  }
+
+  private static function addVectorTest():Void {
+    final vec1 = Vector.fromArray([5.0, 10.0, 15.0, 20.0]);
+    final vec2 = Vector.fromArray([-5.0, -10.0, -15.0, -20.0]);
+
+    final sum1 = vec1.addVector(vec2);
+    final sum2 = vec2.addVector(vec1);
+
+    for (i in 0...vec1.length) {
+      assert(sum1.get(i) == 0.0);
+    }
+
+    for (i in 0...vec1.length) {
+      assert(sum1.get(i) == sum2.get(i));
+    }
+  }
+
+  private static function subtractVectorTest():Void {
+    final vec = Vector.fromArray([17.0, -100.0, 255.0, -1.0, 2000.0]);
+    final result = vec.subtractVector(vec);
+
+    for (i in 0...vec.length) {
+      assert(result.get(i) == 0.0);
+    }
+  }
+
+  private static function negateTest():Void {
+    final vec1 = Vector.fromArray([0.0, -1.0, 2.0, -3.0, 4.0]);
+    final vec2 = Vector.fromArray([0.0, 1.0, -2.0, 3.0, -4.0]);
+
+    for (i in 0...vec1.length) {
+      assert(vec1.get(i) == -vec2.get(i));
     }
   }
 }

@@ -149,10 +149,41 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  // public function addVector(other:Vector):Vector {}
-  // public function subtractVector(other:Vector):Vector {}
+  public function addVector(other:Vector):Vector {
+    if (this.length != other.length) {
+      throw "Addition cannot occur between two vectors of different sizes.";
+    }
+
+    final floatVector = new FloatVector(this.length);
+
+    for (i in 0...this.length) {
+      floatVector[i] = vector[i] + other.vector[i];
+    }
+
+    return new Vector(floatVector);
+  }
+
+  public function subtractVector(other:Vector):Vector {
+    if (this.length != other.length) {
+      throw "Subtraction cannot occur between two vectors of different sizes.";
+    }
+
+    final floatVector = new FloatVector(this.length);
+
+    for (i in 0...this.length) {
+      floatVector[i] = vector[i] - other.vector[i];
+    }
+
+    return new Vector(floatVector);
+  }
+
   // public function outerProduct(other:Vector):Matrix {}
-  // public function negate():Vector {}
+
+  public function negate():Vector {
+    final floatVector = vector.map((value:Float) -> -value);
+
+    return new Vector(floatVector);
+  }
 
   // public function addScalar(scalar:Float):Vector {}
   // public function subtractScalar(scalar:Float):Vector {}
