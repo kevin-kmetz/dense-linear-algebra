@@ -23,6 +23,7 @@ class VectorTest {
     magnitudeTest();
     normalizeTest();
     dotProductTest();
+    crossProductTest();
 
     trace("...all tests passed!");
   }
@@ -173,6 +174,22 @@ class VectorTest {
     assert(vec3.dotProduct(vec4) == -11.0);
 
     assert(vec3.dotProduct(vec4) == vec4.dotProduct(vec3));
+  }
+
+  private static function crossProductTest():Void {
+    final vec1 = Vector.fromArray([2.0, -1.0, 5.0]);
+    final vec2 = Vector.fromArray([-3.0, 4.0, 1.0]);
+
+    final product1 = vec1.crossProduct(vec2);
+    assert(product1.get(0) == -21.0);
+    assert(product1.get(1) == -17.0);
+    assert(product1.get(2) == 5.0);
+
+    final product2 = vec2.crossProduct(vec1);
+
+    for (i in 0...product1.length) {
+      assert(product1.get(i) == -product2.get(i));
+    }
   }
 }
 

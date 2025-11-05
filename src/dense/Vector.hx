@@ -130,7 +130,24 @@ class Vector {
     return componentSum;
   }
 
-  // public function crossProduct(otherVec3:Vector):Vector {}
+  public function crossProduct(otherVec3:Vector):Vector {
+    if (this.length != 3 || otherVec3.length != 3) {
+      throw "Cross product only valid on vectors with three components.";
+    }
+
+    final ax = vector[0], ay = vector[1], az = vector[2];
+    final bx = otherVec3.vector[0],
+          by = otherVec3.vector[1],
+          bz = otherVec3.vector[2];
+
+    final floatVector = new FloatVector(3);
+
+    floatVector[0] = ay * bz - az * by;
+    floatVector[1] = az * bx - ax * bz;
+    floatVector[2] = ax * by - ay * bx;
+
+    return new Vector(floatVector);
+  }
 
   // public function addVector(other:Vector):Vector {}
   // public function subtractVector(other:Vector):Vector {}
