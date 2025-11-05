@@ -16,6 +16,7 @@ class VectorTest {
     fromArrayTest();
     fromHaxeVectorTest();
     generateTest();
+    randomizedTest();
 
     trace("...all tests passed!");
   }
@@ -50,6 +51,39 @@ class VectorTest {
 
     assert(vec.length == 7);
     assert(vec.get(6) == 13.0);
+  }
+
+  private static function randomizedTest():Void {
+    final validateValues = function (vector:Vector, min:Float, max:Float):Bool {
+      var allValuesWithinRange = true;
+
+      for (i in 0...vector.length) {
+        final value = vector.get(i);
+
+        if (value < min || value > max) {
+          allValuesWithinRange = false;
+          break;
+        }
+      }
+
+      return allValuesWithinRange;
+    };
+
+    final vec = Vector.randomized(10, -5.0, 7.5);
+    assert(vec.length == 10);
+    assert(validateValues(vec, -5.0, 7.5));
+
+    final vec2 = Vector.randomized(20);
+    assert(vec2.length == 20);
+    assert(validateValues(vec2, 0.0, 1.0));
+
+    final vec3 = Vector.randomized(30, -23.0);
+    assert(vec3.length == 30);
+    assert(validateValues(vec3, -23.0, 1.0));
+
+    final vec4 = Vector.randomized(40, null, 75.2);
+    assert(vec4.length == 40);
+    assert(validateValues(vec4, 0.0, 75.2));
   }
 }
 
