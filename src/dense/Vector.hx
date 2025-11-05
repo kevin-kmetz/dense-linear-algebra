@@ -15,7 +15,7 @@ class Vector {
   public final length:Int;
 
   private function new(haxeVector:FloatVector) {
-    vector = haxeVector.copy();
+    vector = haxeVector;
     length = haxeVector.length;
   }
 
@@ -24,7 +24,7 @@ class Vector {
   }
 
   public static function fromHaxeVector(haxeVector:FloatVector):Vector {
-    return new Vector(haxeVector);
+    return new Vector(haxeVector.copy());
   }
 
   public static function generate(length:Int, func: Int -> Float):Vector {
