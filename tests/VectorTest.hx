@@ -19,6 +19,8 @@ class VectorTest {
     randomizedTest();
     zeroTest();
     equalsTest();
+    mapTest();
+    magnitudeTest();
 
     trace("...all tests passed!");
   }
@@ -116,6 +118,37 @@ class VectorTest {
 
     assert(vec1.equals(vec3, 0.001));
     assert(!vec1.equals(vec3, 0.00000000001));
+
+    final vec4 = Vector.fromArray([0.0, 0.0, 0.0]);
+
+    assert(!vec1.equals(vec4, 0.001));
+  }
+
+  private static function mapTest():Void {
+    final vec = Vector.generate(5, (i:Int) -> 2.0 * i + 1.0);
+    final mapped = vec.map((value:Float) -> value * 2.0);
+    final expected = Vector.fromArray([2.0, 6.0, 10.0, 14.0, 18.0]);
+
+    for (i in 0...mapped.length) {
+      assert(mapped.get(i) == expected.get(i));
+    }
+  }
+
+  private static function magnitudeTest():Void {
+    final vec1 = Vector.fromArray([0.0, 0.0, 0.0, 0.0, 0.0]);
+    assert(vec1.magnitude() == 0.0);
+
+    final vec2 = Vector.fromArray([3.0, 4.0]);
+    assert(vec2.magnitude() == 5.0);
+
+    final vec3 = Vector.fromArray([-3.0, 4.0]);
+    assert(vec3.magnitude() == 5.0);
+
+    final vec4 = Vector.fromArray([3.0, -4.0, 12.0]);
+    assert(vec4.magnitude() == 13.0);
+
+    final vec5 = Vector.fromArray([4.0, -5.0, 8.0, -8.0]);
+    assert(vec5.magnitude() == 13.0);
   }
 }
 

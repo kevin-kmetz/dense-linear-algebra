@@ -85,9 +85,26 @@ class Vector {
     return vector[index];
   }
 
-  // public function map(func:Float -> Float):Vector {}
+  public function map(func:Float -> Float):Vector {
+    final floatVector = new FloatVector(this.length);
 
-  // public function magnitude():Float {}
+    for (i in 0...this.length) {
+      floatVector[i] = func(this.get(i));
+    }
+
+    return new Vector(floatVector);
+  }
+
+  public function magnitude():Float {
+    var sum = 0.0;
+
+    for (i in 0...this.length) {
+      sum += Math.pow(this.get(i), 2);
+    }
+
+    return Math.sqrt(sum);
+  }
+
   // public function normalize():Vector {}
   // public function dotProduct(other:Vector):Float {}
 
