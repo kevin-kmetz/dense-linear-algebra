@@ -27,6 +27,7 @@ class VectorTest {
     addVectorTest();
     subtractVectorTest();
     negateTest();
+    scalarArithmeticTests();
 
     trace("...all tests passed!");
   }
@@ -227,6 +228,38 @@ class VectorTest {
     for (i in 0...vec1.length) {
       assert(vec1.get(i) == -vec2.get(i));
     }
+  }
+
+  private static function scalarArithmeticTests():Void {
+    final zipAssert = function(a:Vector, b:Vector):Void {
+      assert(a.length == b.length);
+
+      for (i in 0...a.length) {
+        assert(a.get(i) == b.get(i));
+      }
+    };
+
+    final vec = Vector.fromArray([10.0, -20.0, 30.0, -40.0]);
+
+    zipAssert(
+      vec.addScalar(3.0),
+      Vector.fromArray([13.0, -17.0, 33.0, -37.0])
+    );
+
+    zipAssert(
+      vec.subtractScalar(5.0),
+      Vector.fromArray([5.0, -25.0, 25.0, -45.0])
+    );
+
+    zipAssert(
+      vec.multiplyScalar(-10.0),
+      Vector.fromArray([-100.0, 200.0, -300.0, 400.0])
+    );
+
+    zipAssert(
+      vec.divideScalar(2.0),
+      Vector.fromArray([5.0, -10.0, 15.0, -20.0])
+    );
   }
 }
 

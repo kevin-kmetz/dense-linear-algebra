@@ -185,10 +185,21 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  // public function addScalar(scalar:Float):Vector {}
-  // public function subtractScalar(scalar:Float):Vector {}
-  // public function multiplyScalar(scalar:Float):Vector {}
-  // public function divideScalar(scalar:Float):Vector {}
+  public function addScalar(scalar:Float):Vector {
+    return new Vector(vector.map((value:Float) -> value + scalar));
+  }
+
+  public function subtractScalar(scalar:Float):Vector {
+    return new Vector(vector.map((value:Float) -> value - scalar));
+  }
+
+  public function multiplyScalar(scalar:Float):Vector {
+    return new Vector(vector.map((value:Float) -> value * scalar));
+  }
+
+  public function divideScalar(scalar:Float):Vector {
+    return new Vector(vector.map((value:Float) -> value / scalar));
+  }
 
   // public function asMatrixColumn():Matrix {}
   // public function asMatrixRow():Matrix {}
