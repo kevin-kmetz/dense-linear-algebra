@@ -51,7 +51,15 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  // public static function zero(length:Int):Vector {}
+  public static function zero(length:Int):Vector {
+    if (length < 1) { throw "Invalid Vector length."; }
+
+    final floatVector = new FloatVector(length);
+    floatVector.fill(0.0);
+
+    return new Vector(floatVector);
+  }
+
   // public static function unit(length:Int):Vector {}
 
   // public function clone():Vector {}

@@ -17,6 +17,7 @@ class VectorTest {
     fromHaxeVectorTest();
     generateTest();
     randomizedTest();
+    zeroTest();
 
     trace("...all tests passed!");
   }
@@ -84,6 +85,24 @@ class VectorTest {
     final vec4 = Vector.randomized(40, null, 75.2);
     assert(vec4.length == 40);
     assert(validateValues(vec4, 0.0, 75.2));
+  }
+
+  private static function zeroTest():Void {
+    final vec = Vector.zero(10);
+
+    assert(vec.length == 10);
+
+    for (i in 0...vec.length) {
+      assert(vec.get(i) == 0.0);
+    }
+
+    final vec2 = Vector.zero(500);
+
+    assert(vec2.length == 500);
+
+    for (i in 0...vec2.length) {
+      assert(vec2.get(i) == 0.0);
+    }
   }
 }
 
