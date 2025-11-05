@@ -6,9 +6,11 @@ package tests;
 
 class Tests {
   private static function main():Void {
-    trace("Tests.");
+    trace("Now running all tests for the package 'dense'...");
 
     runAll();
+
+    trace("...all tests for package 'dense' passed!");
   }
 
   private static function runAll():Void {

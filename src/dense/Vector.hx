@@ -17,16 +17,28 @@ class Vector {
   private function new(haxeVector:FloatVector) {
     vector = haxeVector.copy();
     length = haxeVector.length;
-
-    trace("Vector.");
   }
 
   public static function fromArray(array:Array<Float>):Vector {
     return new Vector(FloatVector.fromArrayCopy(array));
   }
 
-  // public static function fromHaxeVector(haxeVector:FloatVector):Vector {}
-  // public static function generate(length:Int, func: Int -> Float):Vector {}
+  public static function fromHaxeVector(haxeVector:FloatVector):Vector {
+    return new Vector(haxeVector);
+  }
+
+  public static function generate(length:Int, func: Int -> Float):Vector {
+    if (length < 1) { throw "Invalid Vector length."; }
+
+    final floatVector = new FloatVector(length);
+
+    for (i in 0...length) {
+      floatVector[i] = func(i);
+    }
+
+    return new Vector(floatVector);
+  }
+
   // public static function randomized(length:Int, min:Float, max:Float):Vector {}
   // public static function zero(length:Int):Vector {}
   // public static function unit(length:Int):Vector {}
@@ -34,7 +46,11 @@ class Vector {
   // public function clone():Vector {}
   // public function equals(other:Vector, threshold:Float):Bool {}
   // public function toString():String {}
-  // public function get(index:Int):Float {}
+
+  public function get(index:Int):Float {
+    return vector[index];
+  }
+
   // public function map(func:Float -> Float):Vector {}
 
   // public function magnitude():Float {}

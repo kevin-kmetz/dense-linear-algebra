@@ -6,7 +6,9 @@ package tests;
 
 class MatrixTest {
   public static function run():Void {
-    trace("MatrixTest.");
+    trace("Now running all tests for the class dense.Matrix...");
+
+    trace("...all tests passed!");
   }
 }
 
