@@ -18,6 +18,7 @@ class VectorTest {
     generateTest();
     randomizedTest();
     zeroTest();
+    equalsTest();
 
     trace("...all tests passed!");
   }
@@ -103,6 +104,18 @@ class VectorTest {
     for (i in 0...vec2.length) {
       assert(vec2.get(i) == 0.0);
     }
+  }
+
+  private static function equalsTest():Void {
+    final vec1 = Vector.zero(5);
+    final vec2 = Vector.fromArray([0.0, 0.0, 0.0, 0.0, 0.0]);
+
+    assert(vec1.equals(vec2, 0.0000000001));
+
+    final vec3 = Vector.fromArray([0.0005, 0.0005, 0.0005, 0.0005, 0.0005]);
+
+    assert(vec1.equals(vec3, 0.001));
+    assert(!vec1.equals(vec3, 0.00000000001));
   }
 }
 

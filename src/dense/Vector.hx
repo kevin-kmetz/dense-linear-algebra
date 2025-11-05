@@ -39,7 +39,7 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  public static function randomized(length:Int, ?min:Float, ?max:Float):Vector {
+  public static function randomized(length:Int, min:Float = 0.0, max:Float = 1.0):Vector {
     if (length < 1) { throw "Invalid Vector length."; }
 
     final floatVector = new FloatVector(length);
@@ -60,10 +60,25 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  // public static function unit(length:Int):Vector {}
+  public function clone():Vector {
+    return new Vector(vector);
+  }
 
-  // public function clone():Vector {}
-  // public function equals(other:Vector, threshold:Float):Bool {}
+  public function equals(other:Vector, threshold:Float):Bool {
+    if (this.length != other.length) return false;
+
+    var allWithinThreshold = true;
+
+    for (i in 0...this.length) {
+      if (Math.abs(vector[i] - other.get(i)) > threshold) {
+        allWithinThreshold = false;
+        break;
+      }
+    }
+
+    return allWithinThreshold;
+  }
+
   // public function toString():String {}
 
   public function get(index:Int):Float {
@@ -73,7 +88,6 @@ class Vector {
   // public function map(func:Float -> Float):Vector {}
 
   // public function magnitude():Float {}
-  // public function norm(p:Float):Float {}
   // public function normalize():Vector {}
   // public function dotProduct(other:Vector):Float {}
 
