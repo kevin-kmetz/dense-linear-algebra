@@ -14,6 +14,7 @@ class MatrixTest {
     trace("Now running all tests for the class dense.Matrix...");
 
     fromArrayTest();
+    fromArrayOfArraysTest();
 
     trace("...all tests passed!");
   }
@@ -31,6 +32,19 @@ class MatrixTest {
     assert(mat3.rows == 6);
 
     final mat4 = Matrix.fromArray(1, 6, array);
+  }
+
+  private static function fromArrayOfArraysTest():Void {
+    final arrayArray = [
+      [10.0, 20.0, 30.0, 40.0],
+      [100.0, 200.0, 300.0, 400.0],
+      [1000.0, 2000.0, 3000.0, 4000.0],
+    ];
+
+    final matrix = Matrix.fromArrayOfArrays(arrayArray);
+
+    assert(matrix.rows == 3);
+    assert(matrix.columns == 4);
   }
 }
 

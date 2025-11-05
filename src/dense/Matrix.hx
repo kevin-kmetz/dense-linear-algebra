@@ -33,7 +33,30 @@ class Matrix {
     return new Matrix(rows, columns, FloatVector.fromArrayCopy(array));
   }
 
-  // public static function fromArrayOfArrays(array:Array<Array<Float>>):Matrix {}
+  public static function fromArrayOfArrays(array:Array<Array<Float>>):Matrix {
+    final impliedRowCount = array.length;
+    if (impliedRowCount < 1) throw "Invalid number of rows for matrix.";
+
+    final impliedColumnCount = array[0].length;
+    if (impliedColumnCount < 1) throw "Invalid number of columns for matrix.";
+
+    var mergedArray = array[0].copy();
+
+    for (i in 1...impliedRowCount) {
+      if (array[i].length != impliedColumnCount) {
+        throw "Inconsistent column count among rows in supplied array of arrays.";
+      }
+
+      mergedArray = mergedArray.concat(array[i]);
+    }
+
+    return new Matrix(
+      impliedRowCount,
+      impliedColumnCount,
+      FloatVector.fromArrayCopy(mergedArray)
+    );
+  }
+
   // public static function fromHaxeVector(rows:Int, columns:Int, haxeVector:FloatVector):Matrix {}
   // public static function generate(rows:Int, columns:Int, func:(Int, Int) -> Float):Matrix {}
   // public static function generateByLinearIndex(rows:Int, columns:Int, func:Int -> Float):Matrix {}
