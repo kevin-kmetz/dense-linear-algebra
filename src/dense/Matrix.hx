@@ -57,9 +57,39 @@ class Matrix {
     );
   }
 
-  // public static function fromHaxeVector(rows:Int, columns:Int, haxeVector:FloatVector):Matrix {}
-  // public static function generate(rows:Int, columns:Int, func:(Int, Int) -> Float):Matrix {}
-  // public static function generateByLinearIndex(rows:Int, columns:Int, func:Int -> Float):Matrix {}
+  public static function fromHaxeVector(
+    rows:Int, columns:Int, haxeVector:FloatVector
+  ):Matrix {
+    return new Matrix(rows, columns, haxeVector.copy());
+  }
+
+  public static function generate(
+    rows:Int, columns:Int, func:(Int, Int) -> Float
+  ):Matrix {
+    final floatVector = new FloatVector(rows * columns);
+
+    for (r in 0...rows) {
+      for (c in 0...columns) {
+        floatVector[(r * columns) + (c % columns)] = func(r, c);
+      }
+    }
+
+    return new Matrix(rows, columns, floatVector);
+  }
+
+  public static function generateByLinearIndex(
+    rows:Int, columns:Int, func:Int -> Float
+  ):Matrix {
+    final vectorLength = rows * columns;
+    final floatVector = new FloatVector(vectorLength);
+
+    for (i in 0...vectorLength) {
+      floatVector[i] = func(i);
+    }
+
+    return new Matrix(rows, columns, floatVector);
+  }
+
   // public static function randomized(rows:Int, columns:Int, min:Float, max:Float):Matrix {}
   // public static function zero(rows:Int, columns:Int):Matrix {}
   // public static function identity(sideLength:Int):Matrix {}
@@ -67,7 +97,11 @@ class Matrix {
   // public function clone():Matrix {}
   // public function equals(other:Matrix, threshold:Float):Bool {}
   // public function toString():String {}
-  // public function get(rowIndex:Int, columnIndex:Int):Float {}
+
+  public function get(rowIndex:Int, columnIndex:Int):Float {
+    return vector[(rowIndex * this.columns) + (columnIndex % this.columns)];
+  }
+
   // public function map(func:Float -> Float):Matrix {}
   // public function mapIndex(func:(Int, Int, Float) -> Float):Matrix {}
 
