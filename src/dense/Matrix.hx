@@ -208,8 +208,8 @@ class Matrix {
 
     for (r in 0...newRows) {
       for (c in 0...newColumns) {
-        floatVector[(r * newColumns) + (c % newColumns)] =
-          vector[(c * newRows) + (r % newRows)];
+        floatVector[(r * newColumns) + c] =
+          vector[(c * newRows) + r];
       }
     }
 
@@ -254,15 +254,15 @@ class Matrix {
         var sum = 0.0;
 
         final baseRowIndex = r * this.columns;
-        final baseColumnIndex = c * other.rows;
+        final otherColumns = other.columns;
 
         for (i in 0...this.columns) {
           sum +=
             vector[baseRowIndex + i] *
-            other.vector[(i * columns) + c];
+            other.vector[(i * otherColumns) + c];
         }
 
-        floatVector[(r * newColumns) + (c % newColumns)] = sum;
+        floatVector[(r * newColumns) + c] = sum;
       }
     }
 

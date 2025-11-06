@@ -305,12 +305,105 @@ class MatrixTest {
   }
 
   private static function addMatrixTest():Void {
+    final mat1 = Matrix.fromArrayOfArrays([
+      [5.0, 10.0, 15.0],
+      [-1.0, -2.0, -3.0],
+      [20.0, 30.0, 40.0],
+    ]);
+
+    final mat2 = Matrix.fromArrayOfArrays([
+      [2.0, 4.0, 6.0],
+      [8.0, 10.0, 12.0],
+      [14.0, 16.0, 18.0],
+    ]);
+
+    final expected = Matrix.fromArrayOfArrays([
+      [7.0, 14.0, 21.0],
+      [7.0, 8.0, 9.0],
+      [34.0, 46.0, 58.0],
+    ]);
+
+    final sum = mat1.addMatrix(mat2);
+
+    assert(sum.rows == 3);
+    assert(sum.columns == 3);
+    assert(sum.equals(expected, 0.00000000001));
+    assert(sum.equals(mat2.addMatrix(mat1), 0.0000000001));
   }
 
   private static function subtractMatrixTest():Void {
+    final mat1 = Matrix.fromArrayOfArrays([
+      [5.0, 10.0, 15.0],
+      [-1.0, -2.0, -3.0],
+      [20.0, 30.0, 40.0],
+    ]);
+
+    final mat2 = Matrix.fromArrayOfArrays([
+      [2.0, 4.0, 6.0],
+      [8.0, 10.0, 12.0],
+      [14.0, 16.0, 18.0],
+    ]);
+
+    final expected = Matrix.fromArrayOfArrays([
+      [3.0, 6.0, 9.0],
+      [-9.0, -12.0, -15.0],
+      [6.0, 14.0, 22.0],
+    ]);
+
+    final result = mat1.subtractMatrix(mat2);
+
+    assert(result.rows == 3);
+    assert(result.columns == 3);
+    assert(result.equals(expected, 0.00000000001));
+    assert(!result.equals(mat2.subtractMatrix(mat1), 0.0000000001));
   }
 
   private static function multiplyMatrixTest():Void {
+    final mat1 = Matrix.fromArrayOfArrays([
+      [1.0, 2.0, 3.0],
+      [4.0, 5.0, 6.0],
+    ]);
+
+    final mat2 = Matrix.fromArrayOfArrays([
+      [7.0, 8.0],
+      [9.0, 10.0],
+      [11.0, 12.0],
+    ]);
+
+    final expected = Matrix.fromArrayOfArrays([
+      [58.0, 64.0],
+      [139.0, 154.0],
+    ]);
+
+    final product = mat1.multiplyMatrix(mat2);
+
+    assert(product.rows == 2);
+    assert(product.columns == 2);
+    assert(product.equals(expected, 0.00000000001));
+    assert(!product.equals(mat2.multiplyMatrix(mat1), 0.0000000001));
+
+    final mat3 = Matrix.fromArrayOfArrays([
+      [1.0, 2.0, 0.0],
+      [-1.0, 3.0, 2.0],
+    ]);
+
+    final mat4 = Matrix.fromArrayOfArrays([
+      [2.0, 1.0, 0.0, 3.0],
+      [0.0, -1.0, 4.0, 2.0],
+      [1.0, 2.0, 1.0, 0.0],
+    ]);
+
+    final expected = Matrix.fromArrayOfArrays([
+      [2.0, -1.0, 8.0, 7.0],
+      [0.0, 0.0, 14.0, 3.0],
+    ]);
+
+    final product2 = mat3.multiplyMatrix(mat4);
+
+    assert(product2.rows == 2);
+    assert(product2.columns == 4);
+    assert(product2.equals(expected, 0.0000000001));
+    assert(expected.equals(product2, 0.0000000001));
   }
 
   private static function getRowTest():Void {
