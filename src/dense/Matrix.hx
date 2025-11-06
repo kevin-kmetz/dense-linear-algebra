@@ -138,7 +138,23 @@ class Matrix {
     return new Matrix(this.rows, this.columns, this.vector);
   }
 
-  // public function equals(other:Matrix, threshold:Float):Bool {}
+  public function equals(other:Matrix, threshold:Float):Bool {
+    if (this.rows != other.rows || this.columns != other.columns)
+      return false;
+
+    var allWithinThreshold = true;
+    final otherVector = other.vector;
+
+    for (i in 0...vector.length) {
+      if (Math.abs(vector[i] - otherVector[i]) > threshold) {
+        allWithinThreshold = false;
+        break;
+      }
+    }
+
+    return allWithinThreshold;
+  }
+
   // public function toString():String {}
 
   public function get(rowIndex:Int, columnIndex:Int):Float {

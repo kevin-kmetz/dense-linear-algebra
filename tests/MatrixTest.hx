@@ -21,6 +21,7 @@ class MatrixTest {
     randomizedTest();
     zeroTest();
     identityTest();
+    equalsTest();
 
     trace("...all tests passed!");
   }
@@ -178,6 +179,39 @@ class MatrixTest {
         }
       }
     }
+  }
+
+  private static function equalsTest():Void {
+    final mat1 = Matrix.fromArrayOfArrays([
+      [0.0, 1.0, 2.0, 3.0, 4.0],
+      [50.0, 60.0, 70.0, 80.0, 90.0],
+    ]);
+
+    final mat2 = Matrix.fromArray(
+      2, 5,
+      [0.0, 1.0, 2.0, 3.0, 4.0, 50.0, 60.0, 70.0, 80.0, 90.0]
+    );
+
+    assert(mat1.equals(mat2, 0.00000000001));
+    assert(mat2.equals(mat1, 0.00000000001));
+
+    final mat3 = Matrix.fromArrayOfArrays([
+      [0.000008, 1.00000053, 2.000000031, 3.00000012, 4.00000098],
+      [50.0000027, 60.0000000064, 70.00000008, 80.00000002, 90.00000005],
+    ]);
+
+    assert(!mat1.equals(mat3, 0.00000000001));
+    assert(!mat3.equals(mat1, 0.00000000001));
+    assert(mat1.equals(mat3, 0.0001));
+    assert(mat3.equals(mat1, 0.0001));
+
+    final mat4 = Matrix.fromArrayOfArrays([
+      [0.0, 1.0, 2.0, 3.0],
+      [50.0, 60.0, 70.0, 80.0],
+    ]);
+
+    assert(!mat1.equals(mat4, 1.001));
+    assert(!mat4.equals(mat1, 1.001));
   }
 }
 
