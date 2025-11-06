@@ -90,7 +90,12 @@ class Matrix {
     return new Matrix(rows, columns, floatVector);
   }
 
-  // public static function randomized(rows:Int, columns:Int, min:Float, max:Float):Matrix {}
+  //public static function randomized(
+  //  rows:Int, columns:Int, min:Float, max:Float
+  //):Matrix {
+
+  //}
+
   // public static function zero(rows:Int, columns:Int):Matrix {}
   // public static function identity(sideLength:Int):Matrix {}
 

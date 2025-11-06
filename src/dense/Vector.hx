@@ -45,7 +45,7 @@ class Vector {
     final floatVector = new FloatVector(length);
 
     for (i in 0...length) {
-      floatVector[i] = randomFloat(min, max);
+      floatVector[i] = Util.randomFloat(min, max);
     }
 
     return new Vector(floatVector);
@@ -203,15 +203,5 @@ class Vector {
 
   // public function asMatrixColumn():Matrix {}
   // public function asMatrixRow():Matrix {}
-
-  private static function randomFloat(min:Float = 0.0, max:Float = 1.0):Float {
-    if (min > max) {
-      throw "Randomization minimum cannot exceed provided maximum.";
-    }
-
-    final distance = max - min;
-
-    return Math.random() * distance + min;
-  }
 }
 
