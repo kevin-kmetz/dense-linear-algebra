@@ -26,6 +26,11 @@ class MatrixTest {
     mapTest();
     mapIndexTest();
     transposeTest();
+    addMatrixTest();
+    subtractMatrixTest();
+    multiplyMatrixTest();
+    getRowTest();
+    getColumnTest();
 
     trace("...all tests passed!");
   }
@@ -297,6 +302,50 @@ class MatrixTest {
 
     assert(matrix.equals(doubleTransposed, 0.00000000000001));
     assert(doubleTransposed.equals(matrix, 0.00000000000001));
+  }
+
+  private static function addMatrixTest():Void {
+  }
+
+  private static function subtractMatrixTest():Void {
+  }
+
+  private static function multiplyMatrixTest():Void {
+  }
+
+  private static function getRowTest():Void {
+    final matrix = Matrix.fromArrayOfArrays([
+      [20.0, 40.0, 60.0, 80.0, 100.0],
+      [2.0, 3.0, 5.0, 7.0, 11.0],
+      [1.0, 11.0, 111.0, 1111.0, 11112.0],
+    ]);
+
+    final vec1 = matrix.getRow(2);
+    assert(vec1.length == 5);
+    assert(vec1.get(2) == 111.0);
+    assert(vec1.get(4) == 11112.0);
+
+    final vec2 = matrix.getRow(1);
+    assert(vec2.length == 5);
+    assert(vec2.get(0) == 2.0);
+  }
+
+  private static function getColumnTest():Void {
+    final matrix = Matrix.fromArrayOfArrays([
+      [8.0, 6.0, 7.0, 5.0, 3.0],
+      [0.0, 9.0, 10.0, 20.0, 30.0],
+      [90.0, 80.0, 70.0, 60.0, 50.0],
+    ]);
+
+    final vec1 = matrix.getColumn(3);
+    assert(vec1.length == 3);
+    assert(vec1.get(1) == 20.0);
+    assert(vec1.get(2) == 60.0);
+
+    final vec2 = matrix.getColumn(1);
+    assert(vec2.length == 3);
+    assert(vec2.get(0) == 6.0);
+    assert(vec2.get(1) == 9.0);
   }
 }
 
