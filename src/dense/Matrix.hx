@@ -269,7 +269,9 @@ class Matrix {
     return new Matrix(newRows, newColumns, floatVector);
   }
 
-  // public function multiplyVector(other:Vector):Matrix {}
+  public function multiplyVector(other:Vector):Matrix {
+    return this.multiplyMatrix(other.asMatrixColumn());
+  }
 
   public function addScalar(scalar:Float):Matrix {
     return new Matrix(

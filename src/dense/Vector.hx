@@ -173,8 +173,6 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  // public function outerProduct(other:Vector):Matrix {}
-
   public function negate():Vector {
     final floatVector = vector.map((value:Float) -> -value);
 
@@ -197,7 +195,12 @@ class Vector {
     return new Vector(vector.map((value:Float) -> value / scalar));
   }
 
-  // public function asMatrixColumn():Matrix {}
-  // public function asMatrixRow():Matrix {}
+  public function asMatrixColumn():Matrix {
+    return Matrix.fromHaxeVector(vector.length, 1, vector);
+  }
+
+  public function asMatrixRow():Matrix {
+    return Matrix.fromHaxeVector(1, vector.length, vector);
+  }
 }
 
