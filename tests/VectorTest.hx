@@ -5,6 +5,7 @@
 package tests;
 
 import dense.Vector;
+import dense.Matrix;
 
 private final assert = Assert.assert;
 private typedef FloatVector = haxe.ds.Vector<Float>;
@@ -28,6 +29,8 @@ class VectorTest {
     subtractVectorTest();
     negateTest();
     scalarArithmeticTests();
+    asMatrixColumnTest();
+    asMatrixRowTest();
 
     trace("...all tests passed!");
   }
@@ -260,6 +263,26 @@ class VectorTest {
       vec.divideScalar(2.0),
       Vector.fromArray([5.0, -10.0, 15.0, -20.0])
     );
+  }
+
+  private static function asMatrixColumnTest():Void {
+    final vec = Vector.fromArray([5.0, 10.0, 20.0]);
+
+    final matrix = vec.asMatrixColumn();
+
+    assert(matrix.rows == 3);
+    assert(matrix.columns == 1);
+    assert(vec.get(2) == matrix.get(2, 0));
+  }
+
+  private static function asMatrixRowTest():Void {
+    final vec = Vector.fromArray([10.0, 30.0, 50.0]);
+
+    final matrix = vec.asMatrixRow();
+
+    assert(matrix.rows == 1);
+    assert(matrix.columns == 3);
+    assert(vec.get(1) == matrix.get(0, 1));
   }
 }
 

@@ -5,6 +5,7 @@
 package tests;
 
 import dense.Matrix;
+import dense.Vector;
 
 private final assert = Assert.assert;
 private typedef FloatVector = haxe.ds.Vector<Float>;
@@ -32,6 +33,7 @@ class MatrixTest {
     getRowTest();
     getColumnTest();
     scalarArithmeticTests();
+    multiplyVectorTest();
 
     trace("...all tests passed!");
   }
@@ -482,6 +484,22 @@ class MatrixTest {
       matrix.negate(),
       Matrix.fromArray(2, 3, [-10.0, 20.0, -30.0, 40.0, -50.0, 60.0])
     );
+  }
+
+  private static function multiplyVectorTest():Void {
+    final matrix = Matrix.fromArrayOfArrays([
+      [2.0, 1.0, -1.0],
+      [0.0, 3.0, 4.0],
+      [1.0, -2.0, 2.0],
+    ]);
+
+    final columnVector = Vector.fromArray([3.0, 1.0, 2.0]);
+    final expected = Matrix.fromArray(3, 1, [5.0, 11.0, 5.0]);
+    final product = matrix.multiplyVector(columnVector);
+
+    assert(product.rows == 3);
+    assert(product.columns == 1);
+    assert(product.equals(expected, 0.00000000001));
   }
 }
 
