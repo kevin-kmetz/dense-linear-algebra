@@ -18,6 +18,7 @@ class MatrixTest {
     fromHaxeVectorTest();
     generateTest();
     generateByLinearIndexTest();
+    randomizedTest();
 
     trace("...all tests passed!");
   }
@@ -104,6 +105,45 @@ class MatrixTest {
         assert(matrix.get(r, c) == expected[r][c]);
       }
     }
+  }
+
+  private static function randomizedTest():Void {
+    final validateValues = function (matrix:Matrix, min:Float, max:Float):Bool {
+      var allValuesWithinRange = true;
+
+      for (r in 0...matrix.rows) {
+        for (c in 0...matrix.columns) {
+          final value = matrix.get(r, c);
+
+          if (value < min || value > max) {
+            allValuesWithinRange = false;
+            break;
+          }
+        }
+      }
+
+      return allValuesWithinRange;
+    };
+
+    final mat1 = Matrix.randomized(5, 10, -5.0, 7.5);
+    assert(mat1.rows == 5);
+    assert(mat1.columns == 10);
+    assert(validateValues(mat1, -5.0, 7.5));
+
+    final mat2 = Matrix.randomized(4, 5);
+    assert(mat2.rows == 4);
+    assert(mat2.columns == 5);
+    assert(validateValues(mat2, 0.0, 1.0));
+
+    final mat3 = Matrix.randomized(6, 6, -23.0);
+    assert(mat3.rows == 6);
+    assert(mat3.columns == 6);
+    assert(validateValues(mat3, -23.0, 1.0));
+
+    final mat4 = Matrix.randomized(8, 5, null, 75.2);
+    assert(mat4.rows == 8);
+    assert(mat4.columns == 5);
+    assert(validateValues(mat4, 0.0, 75.2));
   }
 }
 

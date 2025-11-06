@@ -39,16 +39,10 @@ class Vector {
     return new Vector(floatVector);
   }
 
-  public static function randomized(length:Int, min:Float = 0.0, max:Float = 1.0):Vector {
+  public static function randomized(length:Int, ?min:Float, ?max:Float):Vector {
     if (length < 1) { throw "Invalid Vector length."; }
 
-    final floatVector = new FloatVector(length);
-
-    for (i in 0...length) {
-      floatVector[i] = Util.randomFloat(min, max);
-    }
-
-    return new Vector(floatVector);
+    return new Vector(Util.randomizedHaxeVector(length));
   }
 
   public static function zero(length:Int):Vector {

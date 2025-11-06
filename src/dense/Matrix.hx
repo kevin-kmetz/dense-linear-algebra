@@ -90,11 +90,17 @@ class Matrix {
     return new Matrix(rows, columns, floatVector);
   }
 
-  //public static function randomized(
-  //  rows:Int, columns:Int, min:Float, max:Float
-  //):Matrix {
+  public static function randomized(
+    rows:Int, columns:Int, ?min:Float, ?max:Float
+  ):Matrix {
+    if (rows < 1) throw "Invalid quantity of matrix rows.";
+    if (columns < 1) throw "Invalid quantity of matrix columns.";
 
-  //}
+    return new Matrix(
+      rows, columns,
+      Util.randomizedHaxeVector(rows * columns, min, max)
+    );
+  }
 
   // public static function zero(rows:Int, columns:Int):Matrix {}
   // public static function identity(sideLength:Int):Matrix {}

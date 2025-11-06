@@ -7,8 +7,25 @@
 
 package dense;
 
+private typedef FloatVector = haxe.ds.Vector<Float>;
+
 class Util {
-  public static function randomFloat(min:Float = 0.0, max:Float = 1.0):Float {
+  // Sanity checks for the length parameter of the following function
+  // are expected to occur at the sources of its invocation.
+  //
+  public static function randomizedHaxeVector(
+    length:Int, min:Float = 0.0, max:Float = 1.0
+  ) {
+    final floatVector = new FloatVector(length);
+
+    for (i in 0...length) {
+      floatVector[i] = randomFloat(min, max);
+    }
+
+    return floatVector;
+  }
+
+  private static function randomFloat(min:Float, max:Float):Float {
     if (min > max) {
       throw "Randomization minimum cannot exceed provided maximum.";
     }
