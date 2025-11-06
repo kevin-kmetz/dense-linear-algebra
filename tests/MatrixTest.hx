@@ -22,6 +22,8 @@ class MatrixTest {
     zeroTest();
     identityTest();
     equalsTest();
+    mapTest();
+    mapIndexTest();
 
     trace("...all tests passed!");
   }
@@ -212,6 +214,45 @@ class MatrixTest {
 
     assert(!mat1.equals(mat4, 1.001));
     assert(!mat4.equals(mat1, 1.001));
+  }
+
+  private static function mapTest():Void {
+    final matrix = Matrix.fromArrayOfArrays([
+      [10.0, -20.0, 30.0],
+      [-40.0, 50.0, -60.0],
+    ]);
+
+    final mapped = matrix.map((value:Float) -> -1.0 * value);
+
+    final expected = Matrix.fromArray(
+      2, 3,
+      [-10.0, 20.0, -30.0, 40.0, -50.0, 60.0]
+    );
+
+    assert(mapped.equals(expected, 0.00000000001));
+    assert(expected.equals(mapped, 0.00000000001));
+  }
+
+  private static function mapIndexTest():Void {
+    final matrix = Matrix.fromArrayOfArrays([
+      [500.0, 550.0, 600.0],
+      [770.0, 870.0, 970.0],
+    ]);
+
+    final mapped = matrix.mapIndex(
+      function(row:Int, column:Int, value:Float):Float {
+        if (row > 0) return value + 1030.0;
+        return value;
+      }
+    );
+
+    final expected = Matrix.fromArray(
+      2, 3,
+      [500.0, 550.0, 600.0, 1800.0, 1900.0, 2000.0]
+    );
+
+    assert(mapped.equals(expected, 0.000000000001));
+    assert(expected.equals(mapped, 0.000000000001));
   }
 }
 

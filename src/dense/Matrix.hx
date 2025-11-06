@@ -161,8 +161,30 @@ class Matrix {
     return vector[(rowIndex * this.columns) + (columnIndex % this.columns)];
   }
 
-  // public function map(func:Float -> Float):Matrix {}
-  // public function mapIndex(func:(Int, Int, Float) -> Float):Matrix {}
+  public function map(func:Float -> Float):Matrix {
+    final floatVector = new FloatVector(vector.length);
+
+    for (i in 0...vector.length) {
+      floatVector[i] = func(vector[i]);
+    }
+
+    return new Matrix(this.rows, this.columns, floatVector);
+  }
+
+  public function mapIndex(func:(Int, Int, Float) -> Float):Matrix {
+    final floatVector = new FloatVector(vector.length);
+
+    var index = 0;
+
+    for (r in 0...this.rows) {
+      for (c in 0...this.columns) {
+        floatVector[index] = func(r, c, vector[index]);
+        ++index;
+      }
+    }
+
+    return new Matrix(this.rows, this.columns, floatVector);
+  }
 
   // public function transpose():Matrix {}
 
