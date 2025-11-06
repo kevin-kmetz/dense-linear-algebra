@@ -19,6 +19,8 @@ class MatrixTest {
     generateTest();
     generateByLinearIndexTest();
     randomizedTest();
+    zeroTest();
+    identityTest();
 
     trace("...all tests passed!");
   }
@@ -144,6 +146,38 @@ class MatrixTest {
     assert(mat4.rows == 8);
     assert(mat4.columns == 5);
     assert(validateValues(mat4, 0.0, 75.2));
+  }
+
+  private static function zeroTest():Void {
+    final rows = 100, columns = 150;
+    final matrix = Matrix.zero(rows, columns);
+
+    assert(matrix.rows == rows);
+    assert(matrix.columns == columns);
+
+    for (r in 0...matrix.rows) {
+      for (c in 0...matrix.columns) {
+        assert(matrix.get(r, c) == 0.0);
+      }
+    }
+  }
+
+  private static function identityTest():Void {
+    final sideLength = 200;
+    final matrix = Matrix.identity(sideLength);
+
+    assert(matrix.rows == sideLength);
+    assert(matrix.columns == sideLength);
+
+    for (r in 0...sideLength) {
+      for (c in 0...sideLength) {
+        if (r == c) {
+          assert(matrix.get(r, c) == 1.0);
+        } else {
+          assert(matrix.get(r, c) == 0.0);
+        }
+      }
+    }
   }
 }
 
