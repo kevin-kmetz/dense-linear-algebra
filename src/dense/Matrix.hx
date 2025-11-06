@@ -102,10 +102,42 @@ class Matrix {
     );
   }
 
-  // public static function zero(rows:Int, columns:Int):Matrix {}
-  // public static function identity(sideLength:Int):Matrix {}
+  public static function zero(rows:Int, columns:Int):Matrix {
+    if (rows < 1) throw "Invalid quantity of matrix rows.";
+    if (columns < 1) throw "Invalid quantity of matrix columns.";
 
-  // public function clone():Matrix {}
+    final length = rows * columns;
+    final floatVector = new FloatVector(length);
+    floatVector.fill(0.0);
+
+    return new Matrix(rows, columns, floatVector);
+  }
+
+  public static function identity(sideLength:Int):Matrix {
+    if (sideLength < 1) throw "Invalid dimensions for square matrix.";
+
+    final floatVector = new FloatVector(sideLength * sideLength);
+    var index = 0;
+
+    for (r in 0...sideLength) {
+      for (c in 0...sideLength) {
+        if (r == c) {
+          floatVector[index] = 1.0;
+        } else {
+          floatVector[index] = 0.0;
+        }
+
+        ++index;
+      }
+    }
+
+    return new Matrix(sideLength, sideLength, floatVector);
+  }
+
+  public function clone():Matrix {
+    return new Matrix(this.rows, this.columns, this.vector);
+  }
+
   // public function equals(other:Matrix, threshold:Float):Bool {}
   // public function toString():String {}
 
