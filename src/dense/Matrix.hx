@@ -216,9 +216,58 @@ class Matrix {
     return new Matrix(newRows, newColumns, floatVector);
   }
 
-  // public function addMatrix(other:Matrix):Matrix {}
-  // public function subtractMatrix(other:Matrix):Matrix {}
-  // public function multiplyMatrix(other:Matrix):Matrix {}
+  public function addMatrix(other:Matrix):Matrix {
+    if (!this.hasSameDimensions(other))
+      throw "Matrix dimensions mismatch - addition cannot be performed.";
+
+    final floatVector = new FloatVector(vector.length);
+
+    for (i in 0...vector.length) {
+      floatVector[i] = vector[i] + other.vector[i];
+    }
+
+    return new Matrix(this.rows, this.columns, floatVector);
+  }
+
+  public function subtractMatrix(other:Matrix):Matrix {
+    if (!this.hasSameDimensions(other))
+      throw "Matrix dimensions mismatch - substraction cannot be performed.";
+
+    final floatVector = new FloatVector(vector.length);
+
+    for (i in 0...vector.length) {
+      floatVector[i] = vector[i] - other.vector[i];
+    }
+
+    return new Matrix(this.rows, this.columns, floatVector);
+  }
+
+  public function multiplyMatrix(other:Matrix):Matrix {
+    if (this.columns != other.rows)
+      throw "Invalid dimensions between matrices - multiplication cannot be performed.";
+
+    final newRows = this.rows, newColumns = other.columns;
+    final floatVector = new FloatVector(newRows * newColumns);
+
+    for (r in 0...newRows) {
+      for (c in 0...newColumns) {
+        var sum = 0.0;
+
+        final baseRowIndex = r * this.columns;
+        final baseColumnIndex = c * other.rows;
+
+        for (i in 0...this.columns) {
+          sum +=
+            vector[baseRowIndex + i] *
+            other.vector[(i * columns) + c];
+        }
+
+        floatVector[(r * newColumns) + (c % newColumns)] = sum;
+      }
+    }
+
+    return new Matrix(newRows, newColumns, floatVector);
+  }
 
   // public function multiplyVector(other:Vector):Matrix {}
 
@@ -226,5 +275,36 @@ class Matrix {
   // public function subtractScalar(other:Float):Matrix {}
   // public function multiplyScalar(other:Float):Matrix {}
   // public function divideScalar(other:Float):Matrix {}
+
+  public function getRow(rowIndex:Int):Vector {
+    if (rowIndex < 0 || rowIndex >= this.rows)
+      throw "Index exceeds the number of rows in the reference matrix.";
+
+    final floatVector = new FloatVector(this.columns);
+    final baseIndex = rowIndex * this.columns;
+
+    for (c in 0...this.columns) {
+      floatVector[c] = vector[baseIndex + c];
+    }
+
+    return Vector.fromHaxeVector(floatVector);
+  }
+
+  public function getColumn(columnIndex:Int):Vector {
+    if (columnIndex < 0 || columnIndex >= this.columns)
+      throw "Index exceeds the number of columns in the reference matrix.";
+
+    final floatVector = new FloatVector(this.rows);
+
+    for (r in 0...this.rows) {
+      floatVector[r] = vector[r * this.columns + columnIndex];
+    }
+
+    return Vector.fromHaxeVector(floatVector);
+  }
+
+  private function hasSameDimensions(other:Matrix):Bool {
+    return this.rows == other.rows && this.columns == other.columns;
+  }
 }
 
