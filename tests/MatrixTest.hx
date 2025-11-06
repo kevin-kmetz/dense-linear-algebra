@@ -31,6 +31,7 @@ class MatrixTest {
     multiplyMatrixTest();
     getRowTest();
     getColumnTest();
+    scalarArithmeticTests();
 
     trace("...all tests passed!");
   }
@@ -439,6 +440,48 @@ class MatrixTest {
     assert(vec2.length == 3);
     assert(vec2.get(0) == 6.0);
     assert(vec2.get(1) == 9.0);
+  }
+
+  private static function scalarArithmeticTests():Void {
+    final zipAssert = function(a:Matrix, b:Matrix):Void {
+      assert(a.rows == b.rows && a.columns == b.columns);
+
+      for (r in 0...a.rows) {
+        for (c in 0...a.columns) {
+          assert(a.get(r, c) == b.get(r, c));
+        }
+      }
+    };
+
+    final matrix = Matrix.fromArrayOfArrays([
+      [10.0, -20.0, 30.0],
+      [-40.0, 50.0, -60.0],
+    ]);
+
+    zipAssert(
+      matrix.addScalar(3.0),
+      Matrix.fromArray(2, 3, [13.0, -17.0, 33.0, -37.0, 53.0, -57.0])
+    );
+
+    zipAssert(
+      matrix.subtractScalar(5.0),
+      Matrix.fromArray(2, 3, [5.0, -25.0, 25.0, -45.0, 45.0, -65.0])
+    );
+
+    zipAssert(
+      matrix.multiplyScalar(-10.0),
+      Matrix.fromArray(2, 3, [-100.0, 200.0, -300.0, 400.0, -500.0, 600.0])
+    );
+
+    zipAssert(
+      matrix.divideScalar(2.0),
+      Matrix.fromArray(2, 3, [5.0, -10.0, 15.0, -20.0, 25.0, -30.0])
+    );
+
+    zipAssert(
+      matrix.negate(),
+      Matrix.fromArray(2, 3, [-10.0, 20.0, -30.0, 40.0, -50.0, 60.0])
+    );
   }
 }
 

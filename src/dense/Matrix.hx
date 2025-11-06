@@ -271,10 +271,40 @@ class Matrix {
 
   // public function multiplyVector(other:Vector):Matrix {}
 
-  // public function addScalar(other:Float):Matrix {}
-  // public function subtractScalar(other:Float):Matrix {}
-  // public function multiplyScalar(other:Float):Matrix {}
-  // public function divideScalar(other:Float):Matrix {}
+  public function addScalar(scalar:Float):Matrix {
+    return new Matrix(
+      this.rows, this.columns,
+      vector.map((value:Float) -> value + scalar)
+    );
+  }
+
+  public function subtractScalar(scalar:Float):Matrix {
+    return new Matrix(
+      this.rows, this.columns,
+      vector.map((value:Float) -> value - scalar)
+    );
+  }
+
+  public function multiplyScalar(scalar:Float):Matrix {
+    return new Matrix(
+      this.rows, this.columns,
+      vector.map((value:Float) -> value * scalar)
+    );
+  }
+
+  public function divideScalar(scalar:Float):Matrix {
+    return new Matrix(
+      this.rows, this.columns,
+      vector.map((value:Float) -> value / scalar)
+    );
+  }
+
+  public function negate():Matrix {
+    return new Matrix(
+      this.rows, this.columns,
+      vector.map((value:Float) -> value * -1.0)
+    );
+  }
 
   public function getRow(rowIndex:Int):Vector {
     if (rowIndex < 0 || rowIndex >= this.rows)
@@ -303,7 +333,7 @@ class Matrix {
     return Vector.fromHaxeVector(floatVector);
   }
 
-  private function hasSameDimensions(other:Matrix):Bool {
+  public function hasSameDimensions(other:Matrix):Bool {
     return this.rows == other.rows && this.columns == other.columns;
   }
 }
