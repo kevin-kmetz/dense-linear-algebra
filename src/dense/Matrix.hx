@@ -186,7 +186,21 @@ class Matrix {
     return new Matrix(this.rows, this.columns, floatVector);
   }
 
-  // public function transpose():Matrix {}
+  public function transpose():Matrix {
+    final floatVector = new FloatVector(vector.length);
+    final newRows = this.columns, newColumns = this.rows;
+
+    var index = 0;
+
+    for (r in 0...newRows) {
+      for (c in 0...newColumns) {
+        floatVector[(r * newColumns) + (c % newColumns)] =
+          vector[(c * newRows) + (r % newRows)];
+      }
+    }
+
+    return new Matrix(newRows, newColumns, floatVector);
+  }
 
   // public function addMatrix(other:Matrix):Matrix {}
   // public function subtractMatrix(other:Matrix):Matrix {}

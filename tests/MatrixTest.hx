@@ -24,6 +24,7 @@ class MatrixTest {
     equalsTest();
     mapTest();
     mapIndexTest();
+    transposeTest();
 
     trace("...all tests passed!");
   }
@@ -253,6 +254,32 @@ class MatrixTest {
 
     assert(mapped.equals(expected, 0.000000000001));
     assert(expected.equals(mapped, 0.000000000001));
+  }
+
+  private static function transposeTest():Void {
+    final matrix = Matrix.fromArrayOfArrays([
+      [5, 10, 15, 20, 25],
+      [7, 14, 21, 28, 35],
+      [9, 18, 27, 36, 45],
+    ]);
+
+    final transposed = matrix.transpose();
+
+    final expected = Matrix.fromArrayOfArrays([
+      [5, 7, 9],
+      [10, 14, 18],
+      [15, 21, 27],
+      [20, 28, 36],
+      [25, 35, 45],
+    ]);
+
+    assert(transposed.equals(expected, 0.00000000000001));
+    assert(expected.equals(transposed, 0.00000000000001));
+
+    final doubleTransposed = matrix.transpose().transpose();
+
+    assert(matrix.equals(doubleTransposed, 0.00000000000001));
+    assert(doubleTransposed.equals(matrix, 0.00000000000001));
   }
 }
 
