@@ -22,6 +22,7 @@ class MatrixTest {
     zeroTest();
     identityTest();
     equalsTest();
+    toStringTest();
     mapTest();
     mapIndexTest();
     transposeTest();
@@ -215,6 +216,22 @@ class MatrixTest {
 
     assert(!mat1.equals(mat4, 1.001));
     assert(!mat4.equals(mat1, 1.001));
+  }
+
+  private static function toStringTest():Void {
+    final matrix = Matrix.fromArrayOfArrays([
+      [5.001, 6.0002, 7.0003, 8.00004, 9.000005],
+      [-1.0, -2.0, 3.5, 100.50, 0.0],
+      [777.0, 888.0, -555.0, 1.0, 0.12345],
+    ]);
+
+    final expected =
+      "\n" +
+      "[5.001,6.0002,7.0003,8.00004,9.000005]\n" +
+      "[-1,-2,3.5,100.5,0]\n" +
+      "[777,888,-555,1,0.12345]\n";
+
+    assert(matrix.toString() == expected);
   }
 
   private static function mapTest():Void {

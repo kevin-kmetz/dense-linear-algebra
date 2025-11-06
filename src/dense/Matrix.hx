@@ -155,7 +155,21 @@ class Matrix {
     return allWithinThreshold;
   }
 
-  // public function toString():String {}
+  public function toString():String {
+    final builder = new StringBuf();
+    builder.add("\n");
+
+    for (r in 0...this.rows) {
+      final tempVec = new FloatVector(this.columns);
+      final position = r * this.columns;
+
+      FloatVector.blit(vector, position, tempVec, 0, this.columns);
+      builder.add(Std.string(tempVec));
+      builder.add("\n");
+    }
+
+    return builder.toString();
+  }
 
   public function get(rowIndex:Int, columnIndex:Int):Float {
     return vector[(rowIndex * this.columns) + (columnIndex % this.columns)];

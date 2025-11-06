@@ -73,7 +73,9 @@ class Vector {
     return allWithinThreshold;
   }
 
-  // public function toString():String {}
+  public function toString():String {
+    return Std.string(vector);
+  }
 
   public function get(index:Int):Float {
     return vector[index];
