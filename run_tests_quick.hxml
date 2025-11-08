@@ -1,0 +1,13 @@
+# dense-linear-algebra/run_tests_quick.hxml
+#
+# An HXML script to launch the test runner for the unit tests.
+#
+# To test the library on most Haxe targets, refer to
+# "run_tests_most_targets.hxml".
+#
+# Run from the root directory of the project with:
+#   haxe run_tests_quick.hxml
+
+--class-path src
+--run tests.Tests
+
