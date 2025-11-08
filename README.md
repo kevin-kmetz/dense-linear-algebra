@@ -1,13 +1,32 @@
 # dense-linear-algebra
-A simple, portable, zero-dependency Haxe-only immuatable linear algebra library that implements dense vectors and dense matrices of arbitrary dimensions. The matrices are CPU-based, and don't involve SIMD, CUDA, or OpenGL. The focus is on simplicity, portability, and convenience-of-use, not speed, optimization, or efficiency.
+A simple, portable, zero-dependency, immutable linear algebra library that implements dense vectors and dense matrices of arbitrary dimensions. The matrices are CPU-based, and don't involve SIMD, CUDA, or OpenGL. The focus is on simplicity, portability, and convenience-of-use, not speed, optimization, or efficiency.
 
 ## Table of Contents
+- [Motivation](#motivation)
+- [Installation](#installation)
+- [Building](#building)
+- [Running Unit Tests](#running-unit-tests)
+- [Usage (with Haxe)](#usage-with-haxe)
+- [Exposed Classes and Methods](#exposed-classes-and-methods)
+  - [dense.Vector](#densevector)
+  - [dense.Matrix](#densematrix)
+- [Usage as a Target-specific Module](#usage-as-a-target-specific-module)
+  - [Lua](#lua)
+  - [JavaScript (Node)](#javascript-node)
+  - [Python](#python)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [Status and Maintenance](#status-and-maintenance)
 
 ## Motivation
 
 ## Installation
 
-## Usage
+## Building
+
+## Running Unit Tests
+
+## Usage (with Haxe)
 
 ## Exposed Classes and Methods
 
