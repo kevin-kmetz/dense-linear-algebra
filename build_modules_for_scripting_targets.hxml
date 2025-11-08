@@ -1,0 +1,29 @@
+# dense-linear-algebra/build_modules_for_scripting_targets.hxml
+#
+# An HXML script that builds the library into modules that can be imported
+# in Lua, JavaScript (Node), and Python.
+#
+# Run from the root directory of the project with:
+#   haxe build_modules_for_scripting_targets.hxml
+#
+# The resulting files will be in target-specific sub-directories under
+# "./bin/lib/".
+
+--class-path src
+--dce full
+
+dense.Vector
+dense.Matrix
+
+--each
+
+--lua build/lib/lua/dense_linear_algebra.lua
+
+--next
+
+--js build/lib/js/dense_linear_algebra.js
+
+--next
+
+--python build/lib/python/dense_linear_algebra.py
+
