@@ -9,6 +9,7 @@ package dense;
 
 private typedef FloatVector = haxe.ds.Vector<Float>;
 
+@:expose
 class Vector {
   private final vector:FloatVector;
 

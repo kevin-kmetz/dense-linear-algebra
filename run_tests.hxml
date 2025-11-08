@@ -1,11 +1,50 @@
-# dense-linear-algebra/run_tests.hxml
+# dense-linear-algebra/run_tests_most_targets.hxml
 #
-# An HXML script to launch the test runner for the unit tests.
+# An HXML script to launch the test runner for the unit tests for most of
+# the targets that Haxe provides.
+#
+# An assumption is made that compilation / execution toolchains exist
+# on the invoking system for each target. Comment out any targets that are
+# installed on one's system.
 #
 # Run from the root directory of the project with:
-#   haxe run_tests.hxml
+#   haxe run_tests_most_targets.hxml
 
 --class-path src
+--main tests.Tests
 
---run tests.Tests
+--each
+
+--lua build/tests/lua/dense_tests.lua
+--cmd lua build/tests/lua/dense_tests.lua
+
+--next
+
+--python build/tests/python/dense_tests.py
+--cmd python3 build/tests/python/dense_tests.py
+
+--next
+
+--jvm build/tests/jvm/DenseTests.jar
+--cmd java -jar build/tests/jvm/DenseTests.jar
+
+--next
+
+--cpp build/tests/cpp/dense_tests
+--cmd build/tests/cpp/dense_tests/Tests
+
+--next
+
+--php build/tests/php/dense_tests
+--cmd php build/tests/php/dense_tests/index.php
+
+--next
+
+--js build/tests/js/dense_tests.js
+--cmd node build/tests/js/dense_tests.js
+
+--next
+
+--neko build/tests/neko/dense_tests.n
+--cmd neko build/tests/neko/dense_tests.n
 

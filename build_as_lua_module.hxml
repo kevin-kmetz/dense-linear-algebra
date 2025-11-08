@@ -1,0 +1,16 @@
+# dense-linear-algebra/build_as_lua_module.hxml
+#
+# An HXML script to build the Vector and Matrix classes in single module,
+# to be used as a library in Lua (this lends itself to REPL interaction
+# with the library).
+#
+# Run from the root directory of the project with:
+#   haxe build_as_lua_module.hxml
+
+--lua dense_linear_algebra.lua
+--class-path src
+--dce full
+
+dense.Vector
+dense.Matrix
+
