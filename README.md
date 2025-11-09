@@ -1,5 +1,6 @@
 # dense-linear-algebra
 A simple, portable, zero-dependency, immutable linear algebra library that implements dense vectors and dense matrices of arbitrary dimensions. The matrices are CPU-based, and don't involve SIMD, CUDA, or OpenGL. The focus is on simplicity, portability, and convenience-of-use, not speed, optimization, or efficiency.
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Table of Contents
 - [Motivation](#motivation)
@@ -23,10 +24,64 @@ A simple, portable, zero-dependency, immutable linear algebra library that imple
 ## Installation
 
 ## Building
+Typically, if one is writing a Haxe program that makes use of this library, if not installed via haxelib, then one would `git clone` the reposity, and then in the HXML file for a custom Haxe project, the `--class-path` option would be used to point to the project to the source folder from the dense-linear-algebra repository directory so that the dense package can be seen.
+
+If one merely wants to build the library to a specific target to be used as an importable module, the following can be done, which builds importable modules for the Lua, JavaScript, and Python Haxe targets:
+
+```
+git clone https://github.com/kevin-kmetz/dense-linear-algebra.git
+
+cd dense-linear-algebra
+
+haxe build_modules_for_scripting_targets.hxml
+
+cd build/lib
+
+ls -l
+```
+See the [Usage as a Target-specific Module](#usage-as-a-target-specific-module) section below for how to use the built modules within scripts in each of those languages.
+
+The library can also be built for other non-scripting Haxe targets using the `haxe` command and corresponding target-specific options.
 
 ## Running Unit Tests
+To run a quick test over which just makes use of the `haxe --run` target, the following can be run from the root directory of the project:
+
+```
+haxe run_tests_quick.hxml
+```
+
+To run the unit tests but across most of the targets that Haxe has to offer, the following can be run from the root directory of the project:
+
+```
+haxe run_tests_most_targets.hxml
+```
+
+The above assumes that the proper compilation toolchains are installed for each of the targets.
 
 ## Usage (with Haxe)
+The default constructors for both classes are private, and instances of each class are meant to be created using various provided public static factory methods.
+
+```haxe
+import dense.Vector;
+import dense.Matrix;
+
+final vec = Vector.fromArray([2.0, 5.0, 7.0]);
+final anotherVec = vec.multiplyScalar(3.0);
+
+final mat = Matrix.fromArrayOfArrays([
+  [-1.0, -3.0, -5.0],
+  [10.0, 20.0, 30.0],
+  [-5.0, 0.0, 5.0],
+  [0.0, 100.0, 0.0],
+]);
+
+// The following method treats vectors as right-hand column vectors:
+final matrixVectorProduct = matrix.multiplyVector(vec);
+```
+
+Individual elements of vectors and methods are not intended to be set after initial creation of any particular vector or matrix - that is by design. Elements can be set individually at time of creation using factory methods that provide an index or a row and column index. These factory methods take a function as an argument, which would be a fantastic place to use a lambda, and if any variable-dependent behavior is needed, a closure.
+
+Both vectors and the rows and columns of matrices are indexed starting with zero, as is the norm with other Haxe data structures.
 
 ## Exposed Classes and Methods
 
