@@ -1,5 +1,6 @@
 # dense-linear-algebra
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 A simple, portable, zero-dependency, immutable floating-point linear algebra library that implements dense vectors and dense matrices of arbitrary dimensions. The matrices are CPU-based, and do not involve SIMD, CUDA, or OpenGL. The focus is on simplicity, portability, and convenience-of-use, not speed, optimization, or efficiency.
 
 ## Table of Contents
