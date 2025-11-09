@@ -1,6 +1,6 @@
 # dense-linear-algebra
-A simple, portable, zero-dependency, immutable linear algebra library that implements dense vectors and dense matrices of arbitrary dimensions. The matrices are CPU-based, and don't involve SIMD, CUDA, or OpenGL. The focus is on simplicity, portability, and convenience-of-use, not speed, optimization, or efficiency.
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+A simple, portable, zero-dependency, immutable floating-point linear algebra library that implements dense vectors and dense matrices of arbitrary dimensions. The matrices are CPU-based, and do not involve SIMD, CUDA, or OpenGL. The focus is on simplicity, portability, and convenience-of-use, not speed, optimization, or efficiency.
 
 ## Table of Contents
 - [Motivation](#motivation)
@@ -20,15 +20,24 @@ A simple, portable, zero-dependency, immutable linear algebra library that imple
 - [Status and Maintenance](#status-and-maintenance)
 
 ## Motivation
+The author needed a portable vector and matrix library for quick experimentation on a REPL and then later deployment in a variety of built applications, to include games and utilities.
+
+Specifically, the most pressing uses are in two separate libraries for neural networks and genetic algorithms that will dependend on this library (presently in the works, both of which will also be open-source under the MIT license). The author intends to use these libraries for experimentation with genetic algorithms that train genetic algorithms (hyperparameters), and in the development of mcro-games, to see how compelling the AIs produced can be for certain turn-based games (and some non-turn-based games as well) and if the minutia of writing game-specific AI logic can be delegated to such algorithms.
+
+Early instances of all three libraries were already written in [Fennel](https://fennel-lang.org) (a functional, Clojure-like dialect of Lua) by the author to a fairly usable level, but in particular, the genetic algorithm library proved to be inadvisable to continue writing without the presence of types. [Teal](https://teal-language.org) (a typed dialect of Lua) was considered as an alternative for that specific library, but the desire for less tooling friction (particularly with inlined documentation), a wider variety of deployment targets, and the possibility for native multithreading were all motivating factors to rewrite the libraries and continue with all three libraries in Haxe (after much deliberation and consideration).
+
+Since many matrices and vectors will be created at-scale and reused, it was important that the matrices and vectors be immutable, so that one does not need to worry about mutating the instances out from underneath another section of code that may also be utilizing them.
 
 ## Installation
-
+```bash
+haxelib install dense-linear-algebra
+```
 ## Building
 Typically, if one is writing a Haxe program that makes use of this library, if not installed via haxelib, then one would `git clone` the reposity, and then in the HXML file for a custom Haxe project, the `--class-path` option would be used to point to the project to the source folder from the dense-linear-algebra repository directory so that the dense package can be seen.
 
 If one merely wants to build the library to a specific target to be used as an importable module, the following can be done, which builds importable modules for the Lua, JavaScript, and Python Haxe targets:
 
-```
+```bash
 git clone https://github.com/kevin-kmetz/dense-linear-algebra.git
 
 cd dense-linear-algebra
@@ -46,13 +55,13 @@ The library can also be built for other non-scripting Haxe targets using the `ha
 ## Running Unit Tests
 To run a quick test over which just makes use of the `haxe --run` target, the following can be run from the root directory of the project:
 
-```
+```bash
 haxe run_tests_quick.hxml
 ```
 
 To run the unit tests but across most of the targets that Haxe has to offer, the following can be run from the root directory of the project:
 
-```
+```bash
 haxe run_tests_most_targets.hxml
 ```
 
@@ -79,7 +88,9 @@ final mat = Matrix.fromArrayOfArrays([
 final matrixVectorProduct = matrix.multiplyVector(vec);
 ```
 
-Individual elements of vectors and methods are not intended to be set after initial creation of any particular vector or matrix - that is by design. Elements can be set individually at time of creation using factory methods that provide an index or a row and column index. These factory methods take a function as an argument, which would be a fantastic place to use a lambda, and if any variable-dependent behavior is needed, a closure.
+Individual elements of vectors and matrices are not intended to be set after initial creation of any particular vector or matrix - that is by design. Elements can be set individually at time of creation using factory methods that provide an index or a row and column index. These factory methods take a function as an argument, which would be a fantastic place to use a lambda, and if any variable-dependent behavior is needed, a closure.
+
+Similar methods can be used on existing vectors and matrices to update many elements at once and return new, separate vectors and matrices, again utilizing lambdas and closures.
 
 Both vectors and the rows and columns of matrices are indexed starting with zero, as is the norm with other Haxe data structures.
 
@@ -147,8 +158,7 @@ public function hasSameDimensions(other:Matrix):Bool;
 ```
 
 ## Usage as a Target-specific Module
-
-The library can be compiled as an importable module for each of the Haxe targets. An HXML build script "build_modules_for_scripting_targets.hxml" can be run with the `haxe` command, which will then build importable libraries for Lua, JavaScript (Node), and Python in corresponding folders under "./bin/lib/".
+The library can be compiled as an importable module for each of the Haxe targets. An HXML build script can be run with `haxe build_modules_for_scripting_targets.hxml`, which will then build importable libraries for Lua, JavaScript (Node), and Python in corresponding folders under `./bin/lib/`.
 
 While the modules can of course be used within scripts in each of the targets, the primary motivation for offering them as such was so that the library can be used and experimented with from a REPL environment, and then used in a fully compiled capacity for more serious application.
 
@@ -190,9 +200,24 @@ print(mat.toString())
 ```
 
 ## Roadmap
+The library is fairly complete for the use-case that the author designed it for, but it is likely that the project will be returned to and updated as other adjacent linear algebra needs are encountered.
+
+Specifically, functionality like calculating determinants and solving systems of linear equations are very likely to eventually be implemented.
+
+A Dockerfile or GitHub actions for automated testing and building are likely to be implemented at some point as well.
+
+Automatic documentation from inlined comments utilizing Dox is planned.
+
+One of the existing, available unit testing frameworks for Haxe is eventually planned to be used for unit tests, replacing the bespoke, primitive manner in which unit tests are presently implemented.
+
+Mutable alternatives to the presently immutable classes may be implemented at some point, or some type of optional instance pooling to reduce garbage churn may be implemented.
+
+GPU-accelerated versions of the classes specifically will not be implemented - several libraries on Haxelib already sufficiently satisfy this need.
+
+While it will not be part of the library, the usage of the term "dense" in the title of the library does imply that a library for sparse vectors and matrices is planned, at a time when a need for it is encountered.
 
 ## Contributing
+Code contributions are welcome! See the roadmap immediately above for specific things that are planned. Please observe the style used in the existing library and attempt to conform to it. As is normally the case, unit tests for newly implemented functionality are always appreciated and beneficial.
 
 ## Status and Maintenance
-
-Unless this README explicitly states otherwise, this project is being actively maintained, regardless of how much time has elapsed since the last commit or update. If any issues or improvements are needed or desired, feel free to contribute, open an issue, or reach out to the maintainer at "kevin.kmetz@protonmail.com".
+Unless this README explicitly states otherwise, this project is being actively maintained, regardless of how much time has elapsed since the last commit or update. If any issues or improvements are needed or desired, feel free to contribute, open an issue, or reach out to the maintainer at [kevin.kmetz@protonmail.com](mailto:kevin.kmetz@protonmail.com).
