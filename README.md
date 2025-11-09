@@ -23,7 +23,7 @@ A simple, portable, zero-dependency, immutable floating-point linear algebra lib
 ## Motivation
 The author needed a portable vector and matrix library for quick experimentation on a REPL and then later deployment in a variety of built applications, to include games and utilities.
 
-Specifically, the most pressing uses are in two separate libraries for neural networks and genetic algorithms that will depend on this library (presently in the works, both of which will also be open-source under the MIT license). The author intends to use these libraries for experimentation with genetic algorithms that train genetic algorithms (hyperparameters), and in the development of micro-games, to see how compelling the AIs produced can be for certain turn-based games (and some non-turn-based games as well) and if the minutia of writing game-specific AI logic can be delegated to such algorithms.
+Specifically, the most pressing uses are in two separate libraries for neural networks and genetic algorithms that will depend on this library (presently in the works, both of which will also be open-source under the MIT license). The author intends to use these libraries for experimentation with genetic algorithms that train genetic algorithms (hyperparameters), and in the development of micro-games, to see how compelling the AIs produced can be for certain turn-based games (and some non-turn-based games as well) and if the minutiae of writing game-specific AI logic can be delegated to such algorithms.
 
 Early instances of all three libraries were already written in [Fennel](https://fennel-lang.org) (a functional, Clojure-like dialect of Lua) by the author to a fairly usable level, but in particular, the genetic algorithm library proved to be inadvisable to continue writing without the presence of types. [Teal](https://teal-language.org) (a typed dialect of Lua) was considered as an alternative for that specific library, but the desire for less tooling friction (particularly with inlined documentation), a wider variety of deployment targets, and the possibility for native multithreading were all motivating factors to rewrite the libraries and continue with all three libraries in Haxe (after much deliberation and consideration).
 
@@ -34,7 +34,7 @@ Since many matrices and vectors will be created at-scale and reused, it was impo
 haxelib install dense-linear-algebra
 ```
 ## Building
-Typically, if one is writing a Haxe program that makes use of this library, if not installed via haxelib, then one would `git clone` the reposity, and then in the HXML file for a custom Haxe project, the `--class-path` option would be used to point to the project to the source folder from the dense-linear-algebra repository directory so that the dense package can be seen.
+Typically, if one is writing a Haxe program that makes use of this library, if not installed via haxelib, then one would `git clone` the repository, and then in the HXML file for a custom Haxe project, the `--class-path` option would be used to point to the project to the source folder from the dense-linear-algebra repository directory so that the dense package can be seen.
 
 If one merely wants to build the library to a specific target to be used as an importable module, the following can be done, which builds importable modules for the Lua, JavaScript, and Python Haxe targets:
 
@@ -129,12 +129,12 @@ public function asMatrixRow():Matrix;
 ```haxe
 public final rows:Int;
 public final columns:Int;
-public static function fromArray(rows:Int, columns:Int, haxeVector:Array<Float>):Matrix;
+public static function fromArray(rows:Int, columns:Int, array:Array<Float>):Matrix;
 public static function fromArrayOfArrays(array:Array<Array<Float>>):Matrix;
 public static function fromHaxeVector(rows:Int, columns:Int, haxeVector:haxe.ds.Vector<Float>):Matrix;
 public static function generate(rows:Int, columns:Int, func:(Int, Int) -> Float):Matrix;
 public static function generateByLinearIndex(rows:Int, columns:Int, func:Int -> Float):Matrix;
-public static function randomized():Matrix
+public static function randomized(rows:Int, columns:Int, ?min:Float, ?max:Float):Matrix;
 public static function zero(rows:Int, columns:Int):Matrix;
 public static function identity(sideLength:Int):Matrix;
 public function clone():Matrix;
@@ -171,7 +171,7 @@ dense = require 'dense_linear_algebra'.dense
 Vector, Matrix = dense.Vector, dense.Matrix
 
 vec = Vector.new(7, function(i) return 5.0 * i - 1.0 end)
-vec:substractScalar(3.0)
+vec:subtractScalar(3.0)
 ```
 
 ### JavaScript (Node)
